@@ -31,11 +31,13 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname,'public')));
 
 //Routes
+const appRouter = require('./routes/app-router');
+const userRouter = require('./routes/api/user-router');
+const invoiceRouter = require('./routes/api/invoice-router');
 
-app.get('/',(req,res,next) => {
-    res.render('login',
-    { msg:"Login" });
-});
+app.use('/',appRouter);
+app.use('/api/users',userRouter);
+app.use('/api/invoices',invoiceRouter);
 
 app.use((err,req,res) => {
     if(err.status)
