@@ -32,11 +32,11 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //Routes
 const appRouter = require('./routes/app-router');
-const userRouter = require('./routes/api/user-router');
+const customerRouter = require('./routes/api/customer-router');
 const invoiceRouter = require('./routes/api/invoice-router');
 
 app.use('/',appRouter);
-app.use('/api/users',userRouter);
+app.use('/api/users',customerRouter);
 app.use('/api/invoices',invoiceRouter);
 
 app.use((err,req,res) => {

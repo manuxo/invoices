@@ -6,8 +6,8 @@ module.exports = appRouter;
 
 appRouter.get('/', (req,res) => {
     model = {
-        msg: "Login page",
-        tittle: "Login"
+        msg: "Home page",
+        tittle: "Invoices - Home"
     };
-    res.render('login',model);
+    res.render('index',model);
 });
