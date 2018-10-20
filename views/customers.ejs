@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row row-section">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2>Customers</h2>
+        </div>
+    </div>
+    <div class="row">
+        <% model.customers.forEach(customer => { %>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= customer.business_name %> </h5>
+                        <p class="card-text">
+                            <b>Company address: </b> <%= customer.company_address %>
+                        </p>
+                        <p class="card-text">
+                            <b>Email address: </b> <%= customer.email_address %> 
+                        </p>
+                        <p class="card-text">
+                            <b>Phone number: </b> <%= customer.phone_number %>   
+                        </p>
+                    </div>
+                    <button class="btn btn-success">Send invoice</button>
+                    <button class="btn btn-light">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>

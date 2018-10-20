@@ -39,7 +39,7 @@ app.use('/',appRouter);
 app.use('/api/customers',customerRouter);
 app.use('/api/invoices',invoiceRouter);
 
-app.use((err,req,res) => {
+app.use((err,req,res,next) => {
     if(err.status)
         res.status(err.status).send(err.message);
     else
