@@ -42,7 +42,7 @@ customerRouter.put('/', (req,res) => {
 });
 
 customerRouter.delete('/:id', (req,res) => {
-    const customer_id = req.body.id;
+    const customer_id = req.params.id;
     customerRepo.delete(customer_id, result => {
         res.status(201).send(result);
     });

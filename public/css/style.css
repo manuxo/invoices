@@ -16,3 +16,7 @@ main .container .row {
 .container .row .card{
     min-height: 350px;
 }
+
+i.edit:hover, i.delete:hover{
+    cursor: pointer;
+}

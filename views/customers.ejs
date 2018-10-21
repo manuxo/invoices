@@ -5,26 +5,53 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="btn-group">
+                <button class="btn btn-success" data-toggle="modal" data-target="#editCustomerModal">
+                    New
+                </button>
+            </div>
+        </div>
+        <%- include('add-customer'); %>
+    </div>
+    <div class="row">
         <% model.customers.forEach(customer => { %>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+            <% if(customer) { %>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="customer-<%= customer.id %>">
                 <div class="card">
+                    <div class="card-header clearfix">
+                        <div class="row position-relative">
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 float-left">
+                                <h5 class="card-title">
+                                    <i class="fa fa-building" aria-hidden="true" style="color: #2D414F"></i> <%= customer.business_name %>
+                                </h5>
+                            </div>
+                            <div class="float-right position-absolute" style="right:0;">
+                                <i class="fa fa-pencil-square text-success edit" aria-hidden="true" title="Edit customer" style="font-size: 1.5rem"></i>
+                                <i class="fa fa-window-close text-danger delete" aria-hidden="true" title="Delete customer" style="font-size: 1.5rem"
+                                onclick="deleteCustomer('<%= customer.id %>')"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title"><%= customer.business_name %> </h5>
                         <p class="card-text">
-                            <b>Company address: </b> <%= customer.company_address %>
+                            <b>Company address: </b><i class="fa fa-map-marker" aria-hidden="true"></i> <%= customer.company_address %>
                         </p>
                         <p class="card-text">
-                            <b>Email address: </b> <%= customer.email_address %> 
+                            <b>Email address: </b><i class="fa fa-envelope" aria-hidden="true"></i> <%= customer.email_address %> 
                         </p>
                         <p class="card-text">
-                            <b>Phone number: </b> <%= customer.phone_number %>   
+                            <b>Phone number: </b><i class="fa fa-phone" aria-hidden="true"></i> <%= customer.phone_number %>   
                         </p>
                     </div>
-                    <button class="btn btn-success">Send invoice</button>
-                    <button class="btn btn-light">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-dark">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Invoice
+                    </button>
                 </div>
             </div>
+            <% } %>
         <% }) %>
     </div>
 </div>
+<script src="/js/edit-delete-customer.js"></script>
+<script src="/js/add-customer.js"></script>
