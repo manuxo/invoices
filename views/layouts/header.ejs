@@ -5,13 +5,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item <%= path === 'home'? 'active': null %>">
         <a class="nav-link" href="http://localhost:3000/">Home</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= path === 'customers'? 'active': null %>">
         <a class="nav-link" href="http://localhost:3000/customers">Customers</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= path === 'invoices'? 'active': null %>">
         <a class="nav-link" href="http://localhost:3000/invoices">Invoices</a>
       </li>
     </ul>

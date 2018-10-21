@@ -28,9 +28,9 @@ customerRouter.post('/', (req,res) => {
     });
 });
 
-customerRouter.put('/', (req,res) => {
+customerRouter.put('/:id', (req,res) => {
     const customer = {
-        id: req.body.id,
+        id: req.params.id,
         business_name: req.body.business_name,
         company_address: req.body.company_address,
         email_address: req.body.email_address,

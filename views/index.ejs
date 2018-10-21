@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-    <% include ./layouts/header.ejs %>
+    <%- include('layouts/header',path) %>
 </header>
 <main>
     <%- include(path,model); %>

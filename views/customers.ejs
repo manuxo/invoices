@@ -23,25 +23,45 @@
                         <div class="row position-relative">
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 float-left">
                                 <h5 class="card-title">
-                                    <i class="fa fa-building" aria-hidden="true" style="color: #2D414F"></i> <%= customer.business_name %>
+                                    Customer #<%= customer.id %>
                                 </h5>
                             </div>
                             <div class="float-right position-absolute" style="right:0;">
-                                <i class="fa fa-pencil-square text-success edit" aria-hidden="true" title="Edit customer" style="font-size: 1.5rem"></i>
+                                <i class="fa fa-pencil-square text-dark edit" aria-hidden="true" title="Edit customer" style="font-size: 1.5rem"
+                                onclick="editCustomer(this,'<%= customer.id %>')"></i>
                                 <i class="fa fa-window-close text-danger delete" aria-hidden="true" title="Delete customer" style="font-size: 1.5rem"
                                 onclick="deleteCustomer('<%= customer.id %>')"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="card-detail-<%= customer.id %>">
                         <p class="card-text">
-                            <b>Company address: </b><i class="fa fa-map-marker" aria-hidden="true"></i> <%= customer.company_address %>
+                            <label for="business-name-<%= customer.id %>">
+                                <i class="fa fa-building" aria-hidden="true" style="color: #2D414F"></i> <b>Business name</b>
+                            </label>
+                            <input type="text" class="form-control" value="<%= customer.business_name %>" 
+                            id="business-name-<%= customer.id %>" readonly>
                         </p>
                         <p class="card-text">
-                            <b>Email address: </b><i class="fa fa-envelope" aria-hidden="true"></i> <%= customer.email_address %> 
+                            <label for="company-address-<%= customer.id %>">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> <b>Company address</b>
+                            </label>
+                            <input type="text" class="form-control" value="<%= customer.company_address %>" 
+                            id="company-address-<%= customer.id %>" readonly>
                         </p>
                         <p class="card-text">
-                            <b>Phone number: </b><i class="fa fa-phone" aria-hidden="true"></i> <%= customer.phone_number %>   
+                            <label for="email-address-<%= customer.id %>">
+                                <i class="fa fa-envelope" aria-hidden="true"></i> <b>Email address</b>
+                            </label>
+                            <input type="text" class="form-control" value="<%= customer.email_address %>" 
+                            id="email-address-<%= customer.id %>" readonly>
+                        </p>
+                        <p class="card-text">
+                            <label for="phone-number-<%= customer.id %>">
+                                <i class="fa fa-phone" aria-hidden="true"></i> <b>Phone number</b>
+                            </label>
+                            <input type="text" class="form-control" value="<%= customer.phone_number %> " 
+                            id="phone-number-<%= customer.id %>" readonly>
                         </p>
                     </div>
                     <button class="btn btn-dark">
