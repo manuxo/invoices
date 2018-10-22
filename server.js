@@ -34,10 +34,12 @@ app.use(express.static(path.join(__dirname,'public')));
 const appRouter = require('./routes/app-router');
 const customerRouter = require('./routes/api/customer-router');
 const invoiceRouter = require('./routes/api/invoice-router');
+const invoiceLinesRouter = require('./routes/api/invoice-line-router');
 
 app.use('/',appRouter);
 app.use('/api/customers',customerRouter);
 app.use('/api/invoices',invoiceRouter);
+app.use('/api/invoice_lines', invoiceLinesRouter);
 
 app.use((err,req,res,next) => {
     if(err.status)

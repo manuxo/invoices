@@ -33,10 +33,10 @@ module.exports = {
     },
     save: (invoice, callback) => {
         if(pool){
-            const {subtotal,tax,total} = invoice;
+            const {subtotal,tax,total,customer_id} = invoice;
             const query = {
-                text: 'INSERT INTO invoices(subtotal,tax,total) VALUES($1,$2,$3)',
-                values: [subtotal,tax,total]
+                text: 'INSERT INTO invoices(subtotal,tax,total,customer_id) VALUES($1,$2,$3,$4)',
+                values: [subtotal,tax,total,customer_id]
             }
             pool.query(query)
             .then(result => {

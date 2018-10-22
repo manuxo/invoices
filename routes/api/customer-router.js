@@ -37,13 +37,13 @@ customerRouter.put('/:id', (req,res) => {
         phone_number: req.body.phone_number
     };
     customerRepo.update(customer,result => {
-        res.status(201).send(result);
+        res.status(200).send(result);
     });
 });
 
 customerRouter.delete('/:id', (req,res) => {
     const customer_id = req.params.id;
     customerRepo.delete(customer_id, result => {
-        res.status(201).send(result);
+        res.status(200).send(result);
     });
 })

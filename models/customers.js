@@ -69,7 +69,7 @@ module.exports = {
     delete: (customer_id, callback) => {
         if(pool){
             const query = {
-                text: "DELETE FROM customers WHERE id=$1",
+                text: 'DELETE FROM customers WHERE id=$1',
                 values: [customer_id]
             }
             pool.query(query)
