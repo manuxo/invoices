@@ -2,7 +2,7 @@
 
 const { Pool } = require('pg');
 
-const connectionString = 'postgres://postgres:admin@localhost:5432/db_invoice';
+const connectionString = process.env.CON_STRING || 'postgres://postgres:admin@localhost:5432/db_invoice';
 
 const pool = new Pool({
     connectionString: connectionString,

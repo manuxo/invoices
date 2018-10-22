@@ -29,15 +29,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#001</td>
-                            <td>MAE S.A.C</td>
-                            <td>1997/10/21</td>
-                            <td>925.00</td>
-                            <td>
-                                <button class="btn btn-info">Details</button>
-                            </td>
-                        </tr>
+                        <% model.invoices.forEach(invoice => { %>
+                            <tr>
+                                <td># <%= invoice.id %></td>
+                                <td><%= invoice.customer.business_name %></td>
+                                <td><%= invoice.date_of_issue %></td>
+                                <td><%= invoice.total %></td>
+                                <td>
+                                    <button class="btn btn-info">Details</button>
+                                </td>
+                            </tr>
+                        <% }) %>
                     </tbody>
                 </table>
             </div>

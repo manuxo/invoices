@@ -1,6 +1,6 @@
 //Dependencies
 const { Pool } = require('pg');
-const connectionString = 'postgres://postgres:admin@localhost:5432/db_invoice';
+const connectionString = process.env.CON_STRING || 'postgres://postgres:admin@localhost:5432/db_invoice';
 const pool = new Pool({
     connectionString: connectionString,
     ssl: false
@@ -35,12 +35,12 @@ module.exports = {
         if(pool){
             const {subtotal,tax,total,customer_id} = invoice;
             const query = {
-                text: 'INSERT INTO invoices(subtotal,tax,total,customer_id) VALUES($1,$2,$3,$4)',
+                text: 'INSERT INTO invoices(subtotal,tax,total,customer_id) VALUES($1,$2,$3,$4) RETURNING *',
                 values: [subtotal,tax,total,customer_id]
             }
             pool.query(query)
             .then(result => {
-                callback(result);
+                callback(result.rows[0]);
             })
             .catch(e => {
                 throw e;

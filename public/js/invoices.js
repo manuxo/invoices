@@ -1,5 +1,6 @@
 var btnAddInvoiceLine = document.getElementById("btn-add-invoice-line");
 var btnAddInvoiceClear = document.getElementById("add-invoice-clear");
+var btnSaveInvoice = document.getElementById("add-invoice-save");
 const fdSubtotal = document.getElementById("add-invoice-subtotal");
 const fdTax = document.getElementById("add-invoice-tax");
 const fdTotal = document.getElementById("add-invoice-total");
@@ -30,7 +31,6 @@ btnAddInvoiceLine.addEventListener('click', (e) => {
     });
     fields[1] = parseFloat(fields[1]);
     fields[2] = parseInt(fields[2]);
-    console.log(fields);
     
     if(fields[0] != "" && fields[1] > 0 && fields[2] >= 1){
         const description = fields[0];
@@ -68,4 +68,50 @@ btnAddInvoiceLine.addEventListener('click', (e) => {
         addAmount(amount);
         
     }
+});
+
+btnSaveInvoice.addEventListener('click', (ev) => {
+    let fdCustomer = document.getElementById("add-invoice-select-customer");
+    const invoiceLines = [];
+    let linesContainer = document.getElementById("tbody-add-invoice-lines");
+    let subtotal = 0;
+    linesContainer.childNodes.forEach(x => {
+        if(x instanceof HTMLTableRowElement){
+            const tds = x.childNodes;
+            subtotal += parseFloat(tds[3].textContent);
+            invoiceLines.push({
+                description: tds[0].textContent,
+                unit_cost: tds[1].textContent,
+                quantity: tds[2].textContent,
+                amount: tds[3].textContent,
+            });
+        }
+    });
+    const invoice = {
+        subtotal: subtotal,
+        tax: 0.18*subtotal,
+        total: subtotal+0.18*subtotal,
+        customer_id: fdCustomer.value
+    }
+    $.ajax({
+        url: 'api/invoices',
+        method: 'POST',
+        data: invoice,
+        success: result => {
+            console.log(result);
+            invoiceLines.forEach(invoiceLine => {
+                invoiceLine.invoice_id = result.id;
+                console.log(invoiceLine);
+                $.ajax({
+                    url: 'api/invoice_lines',
+                    method: 'POST',
+                    data: invoiceLine,
+                    success: result => {
+                        console.log(result);
+                    }
+                });
+                location.reload();
+            });
+        }
+    });
 });

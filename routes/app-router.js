@@ -1,5 +1,6 @@
 const express = require('express');
 const customerRepo = require('../models/customers');
+const invoiceRepo = require('../models/invoices');
 let appRouter = express.Router();
 
 module.exports = appRouter;
@@ -25,13 +26,21 @@ appRouter.get('/customers', (req,res) => {
 });
 
 appRouter.get('/invoices', (req,res) => {
-    customerRepo.findAll(customers => {
-        res.render('index', {
-            path:'invoices',
-            tittle:'MAE - Invoices',
-            model: {
-                customers: customers
-            }
+    invoiceRepo.findAll(invoices => {
+        customerRepo.findAll(customers => {
+            invoices.forEach(invoice => {
+                invoice.customer = customers.find(customer => {
+                    return customer.id === invoice.customer_id;
+                });
+            });
+            res.render('index', {
+                path:'invoices',
+                tittle:'MAE - Invoices',
+                model: {
+                    customers: customers,
+                    invoices: invoices
+                }
+            });
         });
     });
 });

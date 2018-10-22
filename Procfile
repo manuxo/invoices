@@ -1,0 +1,1 @@
+CON_STRING= postgres://mzywvzzvixramb:8f57daa6f46b1fc666cc2cf70b97c556259f311ad620ddb66e544f1e28f33d40@ec2-54-243-61-194.compute-1.amazonaws.com:5432/d5lpsgb1u61t4i node server.js

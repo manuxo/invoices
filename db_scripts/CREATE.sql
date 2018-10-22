@@ -4,7 +4,7 @@ CREATE TABLE customers(
     company_address varchar(100) not null,
     email_address varchar(100) not null,
     phone_number varchar(100) not null,
-    created_at_date date default current_date not null,
+    created_at_date varchar(10) default to_char(current_date,'yyyy-mm-dd') not null,
 	created_at_time time default current_time not null
 );
 
@@ -13,7 +13,7 @@ CREATE TABLE invoices(
     subtotal numeric(18,2),
     tax numeric(18,2),
     total numeric(18,2),
-    date_of_issue date default current_date not null
+    date_of_issue varchar(10) default to_char(current_date,'yyyy-mm-dd') not null
 );
 
 CREATE TABLE invoice_lines(
@@ -35,23 +35,6 @@ FOREIGN KEY(customer_id) REFERENCES customers(id);
 
 /*TRIGGERS*/
 
-CREATE OR REPLACE FUNCTION FT_ADD_TO_TOTAL() RETURNS TRIGGER AS $add_invoiceline$
-DECLARE 
-    newSubTotal numeric(18,2);
-    newTax numeric(18,2);
-BEGIN
-    newSubTotal := (SELECT subtotal FROM invoices WHERE id=NEW.invoice_id);
-    newSubTotal := newSubtotal + NEW.amount;
-    newTax := newSubtotal * 0.18;
-    UPDATE invoices
-    SET subtotal = newSubTotal,
-    tax = newTax,
-    total= newSubTotal+newTax
-    WHERE id=NEW.invoice_id;
-    RETURN NULL;
-END
-$add_invoiceline$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION FT_DECREASE_TOTAL() RETURNS TRIGGER AS $decrease_total$
 DECLARE
     newSubTotal numeric(18,2);
@@ -68,10 +51,6 @@ BEGIN
     RETURN NULL;
 END
 $decrease_total$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TX_INSERT_INVOICE_LINE AFTER INSERT 
-ON invoice_lines FOR EACH ROW
-EXECUTE PROCEDURE FT_ADD_TO_TOTAL();
 
 CREATE TRIGGER TX_DELETE_INVOICE_LINE AFTER DELETE
 ON invoice_lines FOR EACH ROW
