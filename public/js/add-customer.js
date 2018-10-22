@@ -1,7 +1,5 @@
 var fields = document.forms["form-add-customer"];
 
-let formCustomer = document.getElementById('form-save-customer')
-
 const validate = customer => {
     if(customer.email_address === "" || customer.business_name === "" || customer.company_address === "" || customer.phone_number === "")
         return false;

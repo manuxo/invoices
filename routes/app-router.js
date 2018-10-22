@@ -25,9 +25,13 @@ appRouter.get('/customers', (req,res) => {
 });
 
 appRouter.get('/invoices', (req,res) => {
-    res.render('index', {
-        path:'invoices',
-        tittle:'MAE - Invoices',
-        model: {}
+    customerRepo.findAll(customers => {
+        res.render('index', {
+            path:'invoices',
+            tittle:'MAE - Invoices',
+            model: {
+                customers: customers
+            }
+        });
     });
 });

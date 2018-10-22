@@ -1,1 +1,47 @@
-Invoices works!
+<div class="container">
+    <div class="row row-section">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2>Invoices</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="btn-group">
+                <button class="btn btn-success" data-toggle="modal" data-target="#addInvoiceModal">
+                    New
+                </button>
+            </div>
+        </div>
+        <%- include('add-invoice',model.customers);%>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <caption>List of invoices</caption>
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Billed to</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#001</td>
+                            <td>MAE S.A.C</td>
+                            <td>1997/10/21</td>
+                            <td>925.00</td>
+                            <td>
+                                <button class="btn btn-info">Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/invoices.js"></script>
