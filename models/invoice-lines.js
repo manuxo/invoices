@@ -1,14 +1,9 @@
 //Dependencies
 const { Pool } = require('pg');
-const connectionString = process.env.CON_STRING || 'postgres://postgres:admin@localhost:5432/db_invoice';
-
-let ssl = false;
-if(process.env.CON_STRING)
-    ssl = true;
-
+const connectionString = 'postgres://mzywvzzvixramb:8f57daa6f46b1fc666cc2cf70b97c556259f311ad620ddb66e544f1e28f33d40@ec2-54-243-61-194.compute-1.amazonaws.com:5432/d5lpsgb1u61t4i';
 const pool = new Pool({
     connectionString: connectionString,
-    ssl: ssl
+    ssl: true
 });
 
 module.exports = {

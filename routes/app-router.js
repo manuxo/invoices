@@ -11,6 +11,7 @@ appRouter.get('/', (req,res) => {
         tittle:'MAE - Home',
         model: {}
     });
+    console.log(process.env.CON_STRING);
 });
 
 appRouter.get('/customers', (req,res) => {
