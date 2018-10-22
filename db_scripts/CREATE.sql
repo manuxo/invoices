@@ -32,3 +32,47 @@ FOREIGN KEY(invoice_id) REFERENCES invoices(id);
 ALTER TABLE invoices ADD customer_id int not null;
 ALTER TABLE invoices ADD CONSTRAINT FK_Customer
 FOREIGN KEY(customer_id) REFERENCES customers(id);
+
+/*TRIGGERS*/
+
+CREATE OR REPLACE FUNCTION FT_ADD_TO_TOTAL() RETURNS TRIGGER AS $add_invoiceline$
+DECLARE 
+    newSubTotal numeric(18,2);
+    newTax numeric(18,2);
+BEGIN
+    newSubTotal := (SELECT subtotal FROM invoices WHERE id=NEW.invoice_id);
+    newSubTotal := newSubtotal + NEW.amount;
+    newTax := newSubtotal * 0.18;
+    UPDATE invoices
+    SET subtotal = newSubTotal,
+    tax = newTax,
+    total= newSubTotal+newTax
+    WHERE id=NEW.invoice_id;
+    RETURN NULL;
+END
+$add_invoiceline$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION FT_DECREASE_TOTAL() RETURNS TRIGGER AS $decrease_total$
+DECLARE
+    newSubTotal numeric(18,2);
+    newTax numeric(18,2); 
+BEGIN
+    newSubTotal := (SELECT subtotal FROM invoices WHERE id=OLD.invoice_id);
+    newSubTotal := newSubtotal - OLD.amount;
+    newTax := newSubtotal * 0.18;
+    UPDATE invoices
+    SET subtotal = newSubTotal,
+    tax = newTax,
+    total= newSubTotal+newTax
+    WHERE id=OLD.invoice_id;
+    RETURN NULL;
+END
+$decrease_total$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TX_INSERT_INVOICE_LINE AFTER INSERT 
+ON invoice_lines FOR EACH ROW
+EXECUTE PROCEDURE FT_ADD_TO_TOTAL();
+
+CREATE TRIGGER TX_DELETE_INVOICE_LINE AFTER DELETE
+ON invoice_lines FOR EACH ROW
+EXECUTE PROCEDURE FT_DECREASE_TOTAL();
