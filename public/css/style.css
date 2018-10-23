@@ -2,6 +2,33 @@ main{
     min-height: 800px
 }
 
+body, html {
+    height: 100%;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url('/img/programming.png');
+    position: relative;
+    /* Full height */
+    height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.parallax-caption{
+    position: absolute;
+    left: 33.3%;
+    top: 180px;
+    width: 33.3%;
+    text-align: center;
+    color: #fff;
+
+}
+
 .row-section{
    background-color: #2D414F; 
    border-radius: 5px;
@@ -26,3 +53,5 @@ i.edit:hover, i.delete:hover{
     overflow-x: auto;
     height: 225px;
 }
+
+
